@@ -4,233 +4,702 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Blue Door Living – EOS Accountability Chart</title>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=JetBrains+Mono:wght@400;500;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg-deep: #0b0f15; --bg-mid: #111820;
-    --text-primary: #e4e9f1; --text-secondary: #8a95a8; --text-muted: #4a5568;
-    --border-subtle: #1e2a3a;
-    --vis-accent: #4a8fe7; --vis-bg: #141e30; --vis-border: #1e3456;
-    --int-accent: #4ac282; --int-bg: #132a1e; --int-border: #1e4a32;
-    --d1: #9b72cf; --d1-bg: #1c1530; --d1-border: #2e2050;
-    --d2: #cf9a72; --d2-bg: #1f1810; --d2-border: #3a2a18;
-    --d3: #72abcf; --d3-bg: #101c28; --d3-border: #18304a;
-    --d4: #cf729b; --d4-bg: #1f1018; --d4-border: #3a1830;
-    --d5: #abcf72; --d5-bg: #181f10; --d5-border: #2a3a18;
+    --brand-blue: #3385D9;
+    --brand-blue-light: #99C2EC;
+    --brand-blue-faint: #E6F0FB;
+    --ink: #0a0a0a;
+    --ink-soft: #3a3a3a;
+    --ink-mute: #707070;
+    --line: #C4D9EE;
+    --line-strong: #99C2EC;
+    --paper: #ffffff;
+    --paper-tint: #FAFBFD;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: var(--paper); }
   body {
-    background: linear-gradient(170deg, var(--bg-deep) 0%, var(--bg-mid) 50%, var(--bg-deep) 100%);
-    font-family: 'DM Sans', system-ui, sans-serif; color: var(--text-primary);
-    min-height: 100vh; padding: 48px 24px 60px;
+    font-family: 'Avenir Next LT Pro', 'Avenir Next', 'Avenir', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 56px 32px 72px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-  .container { max-width: 1080px; margin: 0 auto; }
-  .header { text-align: center; margin-bottom: 44px; }
-  .header .tag { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--vis-accent); opacity: 0.5; margin-bottom: 10px; }
-  .header h1 { font-family: 'Source Serif 4', Georgia, serif; font-size: 36px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; background: linear-gradient(135deg, #e4e9f1 40%, #8a95a8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .header .sub { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); }
-  .top-row { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
-  .card { border-radius: 14px; padding: 22px 26px; position: relative; overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-  .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 14px 14px 0 0; }
-  .card-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; display: inline-block; margin-bottom: 12px; }
-  .card-name { font-family: 'Source Serif 4', Georgia, serif; font-size: 19px; font-weight: 700; margin-bottom: 1px; line-height: 1.25; }
-  .card-title { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-secondary); margin-bottom: 14px; }
-  .card-role { font-size: 12.5px; color: var(--text-secondary); padding-left: 12px; border-left: 2px solid; line-height: 1.4; margin-bottom: 5px; }
-  .card--vis { background: linear-gradient(145deg, var(--vis-bg), #101828); border: 1.5px solid var(--vis-border); box-shadow: 0 4px 24px rgba(74,143,231,0.08); width: 100%; max-width: 520px; }
-  .card--vis::before { background: linear-gradient(90deg, var(--vis-accent), transparent); }
-  .card--vis .card-label { color: var(--vis-accent); background: rgba(74,143,231,0.1); }
-  .card--vis .card-role { border-color: rgba(74,143,231,0.2); }
-  .vis-people { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 14px; }
-  .vis-person { flex: 1; min-width: 130px; }
-  .vis-person .card-title { margin-bottom: 0; }
-  .card--int { background: linear-gradient(145deg, var(--int-bg), #0f1f16); border: 1.5px solid var(--int-border); box-shadow: 0 4px 24px rgba(74,194,130,0.08); width: 100%; max-width: 520px; }
-  .card--int::before { background: linear-gradient(90deg, var(--int-accent), transparent); }
-  .card--int .card-label { color: var(--int-accent); background: rgba(74,194,130,0.1); }
-  .card--int .card-role { border-color: rgba(74,194,130,0.2); }
-  .connector { width: 2px; height: 36px; margin: 0 auto; background: linear-gradient(to bottom, var(--border-subtle), transparent); }
-  .dept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 14px; }
-  .card--dept { cursor: pointer; }
-  .card--dept:hover { transform: translateY(-2px); }
-  .dept-header { display: flex; justify-content: space-between; align-items: flex-start; }
-  .badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 3px 10px; border-radius: 12px; white-space: nowrap; flex-shrink: 0; margin-top: 4px; }
-  .chevron { display: inline-block; transition: transform 0.25s ease; margin-left: 4px; font-size: 12px; }
-  .chevron.open { transform: rotate(180deg); }
-  .reports { display: none; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; border-top: 1px solid var(--border-subtle); padding-top: 14px; margin-top: 14px; }
-  .reports.show { display: grid; }
-  .report-card { border: 1px solid; border-radius: 8px; padding: 10px 14px; }
-  .report-name { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
-  .report-title { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-muted); margin-bottom: 6px; }
-  .report-duties { list-style: none; padding: 0; margin: 0; }
-  .report-duties li { font-size: 11px; color: var(--text-secondary); line-height: 1.35; padding-left: 10px; position: relative; margin-bottom: 2px; }
-  .report-duties li::before { content: '·'; position: absolute; left: 2px; color: var(--text-muted); }
-  .card--d1 { background: linear-gradient(145deg, var(--d1-bg), #14101e); border: 1.5px solid var(--d1-border); }
-  .card--d1::before { background: linear-gradient(90deg, var(--d1), transparent); }
-  .card--d1 .card-label { color: var(--d1); background: rgba(155,114,207,0.1); }
-  .card--d1 .card-role { border-color: rgba(155,114,207,0.2); }
-  .card--d1 .report-card { border-color: var(--d1-border); background: rgba(155,114,207,0.04); }
-  .card--d1 .badge { background: rgba(155,114,207,0.15); color: var(--d1); }
-  .card--d2 { background: linear-gradient(145deg, var(--d2-bg), #181208); border: 1.5px solid var(--d2-border); }
-  .card--d2::before { background: linear-gradient(90deg, var(--d2), transparent); }
-  .card--d2 .card-label { color: var(--d2); background: rgba(207,154,114,0.1); }
-  .card--d2 .card-role { border-color: rgba(207,154,114,0.2); }
-  .card--d2 .report-card { border-color: var(--d2-border); background: rgba(207,154,114,0.04); }
-  .card--d2 .badge { background: rgba(207,154,114,0.15); color: var(--d2); }
-  .card--d3 { background: linear-gradient(145deg, var(--d3-bg), #0c1620); border: 1.5px solid var(--d3-border); }
-  .card--d3::before { background: linear-gradient(90deg, var(--d3), transparent); }
-  .card--d3 .card-label { color: var(--d3); background: rgba(114,171,207,0.1); }
-  .card--d3 .card-role { border-color: rgba(114,171,207,0.2); }
-  .card--d3 .report-card { border-color: var(--d3-border); background: rgba(114,171,207,0.04); }
-  .card--d3 .badge { background: rgba(114,171,207,0.15); color: var(--d3); }
-  .card--d4 { background: linear-gradient(145deg, var(--d4-bg), #180c14); border: 1.5px solid var(--d4-border); }
-  .card--d4::before { background: linear-gradient(90deg, var(--d4), transparent); }
-  .card--d4 .card-label { color: var(--d4); background: rgba(207,114,155,0.1); }
-  .card--d4 .card-role { border-color: rgba(207,114,155,0.2); }
-  .card--d4 .report-card { border-color: var(--d4-border); background: rgba(207,114,155,0.04); }
-  .card--d4 .badge { background: rgba(207,114,155,0.15); color: var(--d4); }
-  .card--d5 { background: linear-gradient(145deg, var(--d5-bg), #14180c); border: 1.5px solid var(--d5-border); }
-  .card--d5::before { background: linear-gradient(90deg, var(--d5), transparent); }
-  .card--d5 .card-label { color: var(--d5); background: rgba(171,207,114,0.1); }
-  .card--d5 .card-role { border-color: rgba(171,207,114,0.2); }
-  .card--d5 .report-card { border-color: var(--d5-border); background: rgba(171,207,114,0.04); }
-  .card--d5 .badge { background: rgba(171,207,114,0.15); color: var(--d5); }
-  .footer { text-align: center; margin-top: 40px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); opacity: 0.5; }
-  @media (max-width: 700px) { .top-row { flex-direction: column; align-items: center; } .card--vis, .card--int { max-width: 100%; } .dept-grid { grid-template-columns: 1fr; } body { padding: 28px 14px 40px; } .header h1 { font-size: 28px; } }
+  .sheet { max-width: 1320px; margin: 0 auto; }
+
+  /* Masthead */
+  .masthead { text-align: center; margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+  .masthead .eyebrow { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--brand-blue); margin-bottom: 14px; }
+  .masthead h1 { font-size: 38px; font-weight: 700; letter-spacing: -0.4px; color: var(--ink); margin-bottom: 8px; }
+  .masthead .sub { font-size: 13px; font-weight: 400; color: var(--ink-mute); letter-spacing: 0.2px; }
+  .masthead .blue { color: var(--brand-blue); font-weight: 600; }
+
+  /* Controls */
+  .controls {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+  .ctrl-btn {
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--brand-blue);
+    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    padding: 7px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .ctrl-btn:hover { background: var(--brand-blue); color: var(--paper); }
+
+  /* Top section */
+  .top { display: flex; flex-direction: column; align-items: center; }
+  .leader-card {
+    background: var(--paper);
+    border: 1.5px solid var(--brand-blue);
+    border-radius: 6px;
+    padding: 22px 28px;
+    width: 100%;
+    max-width: 560px;
+    text-align: center;
+    box-shadow: 0 1px 0 rgba(51,133,217,0.08);
+  }
+  .leader-card.integrator { border-color: var(--ink); }
+  .leader-card .role-tag {
+    display: inline-block;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 2.2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    background: var(--brand-blue);
+    color: var(--paper);
+    margin-bottom: 14px;
+  }
+  .leader-card.integrator .role-tag { background: var(--ink); }
+  .vis-people { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; margin-bottom: 16px; }
+  .vis-person .name { font-size: 17px; font-weight: 700; color: var(--ink); line-height: 1.2; }
+  .vis-person .title { font-size: 11px; font-weight: 400; color: var(--ink-mute); margin-top: 2px; }
+  .leader-card .name-single { font-size: 19px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+  .leader-card .title-single { font-size: 11.5px; font-weight: 400; color: var(--ink-mute); margin-bottom: 14px; }
+  .accountabilities { text-align: left; padding-top: 12px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; gap: 4px 18px; }
+  .accountabilities .item { font-size: 11.5px; color: var(--ink-soft); padding-left: 12px; position: relative; line-height: 1.4; }
+  .accountabilities .item::before { content: ''; position: absolute; left: 0; top: 7px; width: 4px; height: 4px; background: var(--brand-blue); border-radius: 50%; }
+
+  /* Connectors */
+  .v-line { width: 2px; background: var(--line-strong); margin: 0 auto; }
+  .v-line.short { height: 24px; }
+  .v-line.med { height: 32px; }
+
+  /* Department row + bus */
+  .dept-bus { position: relative; }
+  .dept-bus::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: var(--line-strong);
+  }
+  .dept-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    padding-top: 24px;
+    align-items: start;
+  }
+  .dept-col { position: relative; display: flex; flex-direction: column; align-items: center; }
+  .dept-col::before {
+    content: '';
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 24px;
+    background: var(--line-strong);
+  }
+
+  .dept-lead {
+    background: var(--paper);
+    border: 1.5px solid var(--brand-blue);
+    border-radius: 6px;
+    padding: 16px 16px 14px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 1px 0 rgba(51,133,217,0.08);
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: box-shadow 0.18s ease, transform 0.18s ease, border-color 0.18s ease;
+    position: relative;
+  }
+  .dept-lead:hover { box-shadow: 0 3px 12px rgba(51,133,217,0.18); transform: translateY(-1px); }
+  .dept-lead .dept-tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    background: var(--brand-blue);
+    color: var(--paper);
+    margin-bottom: 10px;
+  }
+  .dept-lead .name { font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1.2; }
+  .dept-lead .title { font-size: 10.5px; font-weight: 400; color: var(--ink-mute); margin-top: 2px; margin-bottom: 12px; }
+  .dept-acct {
+    text-align: left;
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+  }
+  .dept-acct .item {
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    padding-left: 10px;
+    position: relative;
+    line-height: 1.35;
+    margin-bottom: 3px;
+  }
+  .dept-acct .item:last-child { margin-bottom: 0; }
+  .dept-acct .item::before { content: ''; position: absolute; left: 0; top: 6px; width: 3px; height: 3px; background: var(--brand-blue); border-radius: 50%; }
+
+  /* Reports indicator on dept lead */
+  .reports-bar {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--brand-blue);
+  }
+  .reports-bar .chevron {
+    display: inline-block;
+    font-size: 10px;
+    transition: transform 0.22s ease;
+  }
+  .dept-col.is-open .reports-bar .chevron { transform: rotate(180deg); }
+  .dept-col.is-open .dept-lead { border-color: var(--brand-blue); box-shadow: 0 3px 14px rgba(51,133,217,0.16); }
+
+  /* Reports tree */
+  .reports-tree {
+    position: relative;
+    padding-left: 22px;
+    padding-top: 8px;
+    width: 100%;
+    display: none;
+  }
+  .dept-col.is-open .reports-tree { display: block; }
+  .reports-tree::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 16px;
+    left: 8px;
+    width: 2px;
+    background: var(--line-strong);
+  }
+  .report {
+    position: relative;
+    background: var(--paper-tint);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--brand-blue-light);
+    border-radius: 4px;
+    padding: 8px 10px;
+    margin-bottom: 6px;
+  }
+  .report::before {
+    content: '';
+    position: absolute;
+    left: -14px;
+    top: 16px;
+    width: 14px;
+    height: 2px;
+    background: var(--line-strong);
+  }
+  .report .name { font-size: 12px; font-weight: 700; color: var(--ink); line-height: 1.2; }
+  .report .title { font-size: 9.5px; font-weight: 400; color: var(--ink-mute); margin-top: 1px; margin-bottom: 5px; }
+  .report ul { list-style: none; padding: 0; margin: 0; }
+  .report li {
+    font-size: 9.5px;
+    color: var(--ink-soft);
+    line-height: 1.35;
+    padding-left: 8px;
+    position: relative;
+    margin-bottom: 1px;
+  }
+  .report li::before { content: ''; position: absolute; left: 1px; top: 5px; width: 2.5px; height: 2.5px; background: var(--brand-blue-light); border-radius: 50%; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-size: 10px;
+    color: var(--ink-mute);
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+  }
+  .footer .blue { color: var(--brand-blue); font-weight: 700; }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .dept-row { grid-template-columns: repeat(2, 1fr); }
+    .dept-bus::before { display: none; }
+    .dept-col::before { display: none; }
+    .dept-col { margin-top: 24px; }
+    .dept-col::after {
+      content: ''; position: absolute; top: -24px; left: 50%;
+      transform: translateX(-50%); width: 2px; height: 24px; background: var(--line-strong);
+    }
+  }
+  @media (max-width: 640px) {
+    body { padding: 32px 16px 48px; }
+    .masthead h1 { font-size: 28px; }
+    .accountabilities { grid-template-columns: 1fr; }
+    .dept-row { grid-template-columns: 1fr; gap: 28px; }
+    .vis-people { gap: 18px; }
+  }
+
+  /* Print: force everything visible, hide controls */
+  @media print {
+    @page { size: 11in 17in landscape; margin: 0.4in; }
+    body { padding: 0; }
+    .sheet { max-width: 100%; }
+    .controls { display: none !important; }
+    .reports-tree { display: block !important; }
+    .reports-bar .chevron { display: none; }
+    .dept-lead { cursor: default; box-shadow: none !important; transform: none !important; }
+    .masthead { margin-bottom: 32px; padding-bottom: 18px; }
+    .masthead h1 { font-size: 26px; }
+    .leader-card, .dept-lead, .report {
+      box-shadow: none !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .dept-col { page-break-inside: avoid; break-inside: avoid; }
+    .report { page-break-inside: avoid; break-inside: avoid; }
+    .footer { margin-top: 24px; }
+  }
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="header">
-    <div class="tag">EOS Accountability Chart</div>
+<div class="sheet">
+
+  <!-- Masthead -->
+  <div class="masthead">
+    <div class="eyebrow">EOS Accountability Chart</div>
     <h1>Blue Door Living</h1>
-    <div class="sub">28 team members · 3rd-party residential property management · NH</div>
+    <div class="sub"><span class="blue">27 team members</span> · 3rd-party residential property management · NH</div>
   </div>
-  <div class="top-row">
-    <div class="card card--vis">
-      <div class="card-label">Visionary</div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button class="ctrl-btn" onclick="expandAll()">Expand all departments</button>
+    <button class="ctrl-btn" onclick="collapseAll()">Collapse all</button>
+  </div>
+
+  <!-- Visionary -->
+  <div class="top">
+    <div class="leader-card">
+      <span class="role-tag">Visionary</span>
       <div class="vis-people">
-        <div class="vis-person"><div class="card-name">Ryan Weiss</div><div class="card-title">Visionary &amp; Business Owner</div></div>
-        <div class="vis-person"><div class="card-name">Axel Ragnarsson</div><div class="card-title">Visionary &amp; Business Owner</div></div>
-        <div class="vis-person"><div class="card-name">Peter Bartash</div><div class="card-title">Visionary &amp; Business Owner</div></div>
+        <div class="vis-person">
+          <div class="name">Ryan Weiss</div>
+          <div class="title">Visionary &amp; Business Owner</div>
+        </div>
+        <div class="vis-person">
+          <div class="name">Axel Ragnarsson</div>
+          <div class="title">Visionary &amp; Business Owner</div>
+        </div>
+        <div class="vis-person">
+          <div class="name">Peter Bartash</div>
+          <div class="title">Visionary &amp; Business Owner</div>
+        </div>
       </div>
-      <div class="card-role">Company vision, culture &amp; core values</div>
-      <div class="card-role">Big relationships (clients, partners, investors)</div>
-      <div class="card-role">Creative problem solving &amp; strategic direction</div>
-      <div class="card-role">R&amp;D / new ideas</div>
-      <div class="card-role">10-year target: 3,000 units under management</div>
-    </div>
-    <div class="card card--int">
-      <div class="card-label">Integrator</div>
-      <div class="card-name">Ryan Weiss</div>
-      <div class="card-title">Integrator / Business Owner</div>
-      <div class="card-role">Runs the business day-to-day</div>
-      <div class="card-role">Manages the Leadership Team</div>
-      <div class="card-role">Accountability across all departments</div>
-      <div class="card-role">P&amp;L management</div>
-      <div class="card-role">Executes business plan &amp; resolves cross-dept issues</div>
-    </div>
-  </div>
-  <div class="connector"></div>
-  <div class="dept-grid">
-    <!-- Property Management -->
-    <div class="card card--dept card--d1" onclick="toggle(this)">
-      <div class="dept-header">
-        <div><div class="card-label">Property Management</div><div class="card-name">Kevin Dube</div><div class="card-title">Property Management Team Lead</div></div>
-        <div class="badge">6 reports <span class="chevron">▾</span></div>
-      </div>
-      <div class="card-role">Client relationship mgmt &amp; owner reporting</div>
-      <div class="card-role">Tenant management &amp; communications</div>
-      <div class="card-role">Lease enforcement, evictions &amp; legal</div>
-      <div class="card-role">Property business plan execution</div>
-      <div class="card-role">Supervise property management team</div>
-      <div class="reports">
-        <div class="report-card"><div class="report-name">Laura Vera</div><div class="report-title">Assistant Property Manager</div><ul class="report-duties"><li>Move-out process management</li><li>Client &amp; tenant communications</li><li>DFR &amp; eviction notice preparation</li><li>Tenant collections follow-up</li></ul></div>
-        <div class="report-card"><div class="report-name">Marlon Callejas</div><div class="report-title">Assistant Property Manager</div><ul class="report-duties"><li>Day-to-day tenant management</li><li>Client &amp; tenant communications</li><li>Lease enforcement &amp; renewals</li><li>Property inspections &amp; vendor coordination</li></ul></div>
-        <div class="report-card"><div class="report-name">Robert Matteau III</div><div class="report-title">Asst. PM (Seacoast)</div><ul class="report-duties"><li>Seacoast portfolio management</li><li>Client &amp; tenant communications</li><li>On-site property visits &amp; inspections</li><li>Lease enforcement &amp; renewals</li></ul></div>
-        <div class="report-card"><div class="report-name">Ryan Stultz</div><div class="report-title">Assistant Property Manager</div><ul class="report-duties"><li>Day-to-day tenant management</li><li>Client &amp; tenant communications</li><li>Lease enforcement &amp; renewals</li><li>Property inspections &amp; vendor coordination</li></ul></div>
-        <div class="report-card"><div class="report-name">Fernando Escobar</div><div class="report-title">Tenant Relationship Mgr</div><ul class="report-duties"><li>Resolve tenant complaints &amp; disputes</li><li>Follow up on maintenance satisfaction surveys</li><li>Track &amp; escalate unresolved issues</li><li>Phone, email &amp; AppFolio tenant inquiries</li></ul></div>
-        <div class="report-card"><div class="report-name">Samuel Ponce</div><div class="report-title">Administrative Assistant</div><ul class="report-duties"><li>Answer phones &amp; redirect communications</li><li>Transfer &amp; manage utility accounts</li><li>Schedule inspections &amp; request contractor quotes</li><li>General administrative support</li></ul></div>
-      </div>
-    </div>
-    <!-- Leasing -->
-    <div class="card card--dept card--d2" onclick="toggle(this)">
-      <div class="dept-header">
-        <div><div class="card-label">Leasing</div><div class="card-name">Sadie Crawford</div><div class="card-title">Leasing Manager</div></div>
-        <div class="badge">2 reports <span class="chevron">▾</span></div>
-      </div>
-      <div class="card-role">Vacancy marketing &amp; apartment listings</div>
-      <div class="card-role">Showings &amp; rental application processing</div>
-      <div class="card-role">Lease preparation, execution &amp; renewals</div>
-      <div class="card-role">Move-in / move-out coordination</div>
-      <div class="card-role">Occupancy rate targets</div>
-      <div class="reports">
-        <div class="report-card"><div class="report-name">Taty Zelaya</div><div class="report-title">Leasing Coordinator</div><ul class="report-duties"><li>Process rental applications &amp; screening</li><li>Create &amp; manage apartment listings</li><li>Coordinate showings &amp; move-ins</li><li>DFR delivery &amp; eviction notice printing</li></ul></div>
-        <div class="report-card"><div class="report-name">Danny Cajina</div><div class="report-title">Leasing Coordinator</div><ul class="report-duties"><li>Process rental applications &amp; screening</li><li>Create &amp; manage apartment listings</li><li>Coordinate showings &amp; move-ins</li><li>Prospective tenant communications</li></ul></div>
-      </div>
-    </div>
-    <!-- Maintenance -->
-    <div class="card card--dept card--d3" onclick="toggle(this)">
-      <div class="dept-header">
-        <div><div class="card-label">Maintenance</div><div class="card-name">Jim Plourde</div><div class="card-title">Maintenance Manager</div></div>
-        <div class="badge">11 reports <span class="chevron">▾</span></div>
-      </div>
-      <div class="card-role">Work order management &amp; prioritization</div>
-      <div class="card-role">Unit turns &amp; renovation oversight</div>
-      <div class="card-role">Vendor management &amp; contracts</div>
-      <div class="card-role">Inventory management &amp; purchasing</div>
-      <div class="card-role">CapEx project oversight &amp; owner comms</div>
-      <div class="reports">
-        <div class="report-card"><div class="report-name">Andrew Lambert</div><div class="report-title">Maintenance Coordinator</div><ul class="report-duties"><li>Review, assign &amp; schedule work orders daily</li><li>Follow up &amp; close completed work orders</li><li>Coordinate techs &amp; vendors</li><li>Certificate of Compliance process</li></ul></div>
-        <div class="report-card"><div class="report-name">Justin Burke</div><div class="report-title">Maintenance Project Mgr</div><ul class="report-duties"><li>Manage CapEx projects &amp; unit turns</li><li>Gather estimates &amp; get owner approval</li><li>Vendor &amp; contractor coordination</li><li>Unit turn business plan communication</li></ul></div>
-        <div class="report-card"><div class="report-name">Kyle Eno</div><div class="report-title">Maintenance Tech II</div><ul class="report-duties"><li>Execute work orders &amp; unit turns</li><li>Lead &amp; mentor other techs</li><li>On-call rotation for emergencies</li><li>Track time, purchases &amp; receipts</li></ul></div>
-        <div class="report-card"><div class="report-name">Bill Simmons</div><div class="report-title">Maintenance Tech</div><ul class="report-duties"><li>Execute work orders &amp; unit turns</li><li>On-call rotation for emergencies</li><li>Track time, purchases &amp; receipts</li></ul></div>
-        <div class="report-card"><div class="report-name">D'Caury Shapleigh</div><div class="report-title">Maintenance Tech</div><ul class="report-duties"><li>Execute work orders &amp; unit turns</li><li>On-call rotation for emergencies</li><li>Track time, purchases &amp; receipts</li></ul></div>
-        <div class="report-card"><div class="report-name">Harrison Watson</div><div class="report-title">Maintenance Tech</div><ul class="report-duties"><li>Execute work orders &amp; unit turns</li><li>On-call rotation for emergencies</li><li>Track time, purchases &amp; receipts</li></ul></div>
-        <div class="report-card"><div class="report-name">Justin Berry</div><div class="report-title">Maintenance Tech</div><ul class="report-duties"><li>Execute work orders &amp; unit turns</li><li>On-call rotation for emergencies</li><li>Track time, purchases &amp; receipts</li></ul></div>
-        <div class="report-card"><div class="report-name">Dustin Kohrherr</div><div class="report-title">Maintenance Tech</div><ul class="report-duties"><li>Execute work orders &amp; unit turns</li><li>On-call rotation for emergencies</li><li>Track time, purchases &amp; receipts</li></ul></div>
-        <div class="report-card"><div class="report-name">Andre Fleuriel</div><div class="report-title">Maintenance Tech</div><ul class="report-duties"><li>Execute work orders &amp; unit turns</li><li>On-call rotation for emergencies</li><li>Track time, purchases &amp; receipts</li></ul></div>
-        <div class="report-card"><div class="report-name">Marty Ferro</div><div class="report-title">Maintenance Tech</div><ul class="report-duties"><li>Execute work orders &amp; unit turns</li><li>On-call rotation for emergencies</li><li>Track time, purchases &amp; receipts</li></ul></div>
-        <div class="report-card"><div class="report-name">Jenni Keefe</div><div class="report-title">Cleaning Technician</div><ul class="report-duties"><li>Clean apartments between tenants</li><li>Common area cleaning &amp; upkeep</li><li>Post-renovation cleaning</li></ul></div>
-      </div>
-    </div>
-    <!-- Finance -->
-    <div class="card card--dept card--d4" onclick="toggle(this)">
-      <div class="dept-header">
-        <div><div class="card-label">Finance / Accounting</div><div class="card-name">Chandrima Bose</div><div class="card-title">Head Accountant</div></div>
-        <div class="badge">2 reports <span class="chevron">▾</span></div>
-      </div>
-      <div class="card-role">Accounts payable &amp; receivable</div>
-      <div class="card-role">Work order &amp; purchase billing</div>
-      <div class="card-role">Bank &amp; ledger reconciliations</div>
-      <div class="card-role">Utility &amp; vendor bill payments</div>
-      <div class="card-role">Financial reporting &amp; DFR support</div>
-      <div class="reports">
-        <div class="report-card"><div class="report-name">Angel Jaranilla</div><div class="report-title">Accounting Assistant</div><ul class="report-duties"><li>Accounts payable &amp; receivable processing</li><li>Work order &amp; purchase billing</li><li>Bank reconciliations</li><li>Utility bill payments</li></ul></div>
-        <div class="report-card"><div class="report-name">Denise Navarro</div><div class="report-title">Accounting Assistant</div><ul class="report-duties"><li>Accounts payable &amp; receivable processing</li><li>Work order &amp; purchase billing</li><li>Bank reconciliations</li><li>Utility bill payments</li></ul></div>
-      </div>
-    </div>
-    <!-- Sales & Marketing -->
-    <div class="card card--dept card--d5" onclick="toggle(this)">
-      <div class="dept-header">
-        <div><div class="card-label">Sales &amp; Marketing</div><div class="card-name">Jacob Rich</div><div class="card-title">Business Development Manager</div></div>
-        <div class="badge">1 report <span class="chevron">▾</span></div>
-      </div>
-      <div class="card-role">New client acquisition &amp; cold outreach</div>
-      <div class="card-role">Owner lead management &amp; follow-up</div>
-      <div class="card-role">Client onboarding process</div>
-      <div class="card-role">Business operations improvement</div>
-      <div class="card-role">Marketing strategy &amp; content oversight</div>
-      <div class="reports">
-        <div class="report-card"><div class="report-name">Ixy Acevedo</div><div class="report-title">Marketing Associate</div><ul class="report-duties"><li>Develop &amp; execute marketing strategy</li><li>Create marketing content &amp; collateral</li><li>Manage social media &amp; online presence</li><li>Support lead generation campaigns</li></ul></div>
+      <div class="accountabilities">
+        <div class="item">Company vision, culture &amp; core values</div>
+        <div class="item">Big relationships (clients, partners, investors)</div>
+        <div class="item">Creative problem solving &amp; strategic direction</div>
+        <div class="item">R&amp;D / new ideas</div>
+        <div class="item">10-year target: 3,000 units under management</div>
       </div>
     </div>
   </div>
-  <div class="footer">Based on EOS / Traction by Gino Wickman · Click departments to expand direct reports</div>
+
+  <div class="v-line med"></div>
+
+  <!-- Integrator -->
+  <div class="top">
+    <div class="leader-card integrator">
+      <span class="role-tag">Integrator</span>
+      <div class="name-single">Ryan Weiss</div>
+      <div class="title-single">Integrator / Business Owner</div>
+      <div class="accountabilities">
+        <div class="item">Runs the business day-to-day</div>
+        <div class="item">Manages the Leadership Team</div>
+        <div class="item">Accountability across all departments</div>
+        <div class="item">P&amp;L management</div>
+        <div class="item">Executes business plan &amp; resolves cross-dept issues</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="v-line med"></div>
+
+  <!-- Department row -->
+  <div class="dept-bus">
+    <div class="dept-row">
+
+      <!-- Property Management -->
+      <div class="dept-col" onclick="toggleDept(this)">
+        <div class="dept-lead">
+          <span class="dept-tag">Property Management</span>
+          <div class="name">Kevin Dube</div>
+          <div class="title">PM Team Lead</div>
+          <div class="dept-acct">
+            <div class="item">Client relationship mgmt &amp; owner reporting</div>
+            <div class="item">Tenant management &amp; communications</div>
+            <div class="item">Lease enforcement, evictions &amp; legal</div>
+            <div class="item">Property business plan execution</div>
+            <div class="item">Supervise property management team</div>
+          </div>
+          <div class="reports-bar">
+            <span>6 reports</span>
+            <span class="chevron">▾</span>
+          </div>
+        </div>
+        <div class="reports-tree">
+          <div class="report">
+            <div class="name">Laura Vera</div>
+            <div class="title">Assistant Property Manager</div>
+            <ul>
+              <li>Move-out process management</li>
+              <li>Client &amp; tenant communications</li>
+              <li>DFR &amp; eviction notice preparation</li>
+              <li>Tenant collections follow-up</li>
+            </ul>
+          </div>
+          <div class="report">
+            <div class="name">Marlon Callejas</div>
+            <div class="title">Assistant Property Manager</div>
+            <ul>
+              <li>Day-to-day tenant management</li>
+              <li>Client &amp; tenant communications</li>
+              <li>Lease enforcement &amp; renewals</li>
+              <li>Property inspections &amp; vendor coordination</li>
+            </ul>
+          </div>
+          <div class="report">
+            <div class="name">Robert Matteau III</div>
+            <div class="title">Asst. PM (Seacoast)</div>
+            <ul>
+              <li>Seacoast portfolio management</li>
+              <li>Client &amp; tenant communications</li>
+              <li>On-site property visits &amp; inspections</li>
+              <li>Lease enforcement &amp; renewals</li>
+            </ul>
+          </div>
+          <div class="report">
+            <div class="name">Ryan Stultz</div>
+            <div class="title">Assistant Property Manager</div>
+            <ul>
+              <li>Day-to-day tenant management</li>
+              <li>Client &amp; tenant communications</li>
+              <li>Lease enforcement &amp; renewals</li>
+              <li>Property inspections &amp; vendor coordination</li>
+            </ul>
+          </div>
+          <div class="report">
+            <div class="name">Fernando Escobar</div>
+            <div class="title">Tenant Relationship Mgr</div>
+            <ul>
+              <li>Resolve tenant complaints &amp; disputes</li>
+              <li>Follow up on maintenance satisfaction surveys</li>
+              <li>Track &amp; escalate unresolved issues</li>
+              <li>Phone, email &amp; AppFolio tenant inquiries</li>
+            </ul>
+          </div>
+          <div class="report">
+            <div class="name">Samuel Ponce</div>
+            <div class="title">Administrative Assistant</div>
+            <ul>
+              <li>Answer phones &amp; redirect communications</li>
+              <li>Transfer &amp; manage utility accounts</li>
+              <li>Schedule inspections &amp; request contractor quotes</li>
+              <li>General administrative support</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Leasing -->
+      <div class="dept-col" onclick="toggleDept(this)">
+        <div class="dept-lead">
+          <span class="dept-tag">Leasing</span>
+          <div class="name">Sadie Crawford</div>
+          <div class="title">Leasing Manager</div>
+          <div class="dept-acct">
+            <div class="item">Vacancy marketing &amp; apartment listings</div>
+            <div class="item">Showings &amp; rental application processing</div>
+            <div class="item">Lease preparation, execution &amp; renewals</div>
+            <div class="item">Move-in / move-out coordination</div>
+            <div class="item">Occupancy rate targets</div>
+          </div>
+          <div class="reports-bar">
+            <span>2 reports</span>
+            <span class="chevron">▾</span>
+          </div>
+        </div>
+        <div class="reports-tree">
+          <div class="report">
+            <div class="name">Taty Zelaya</div>
+            <div class="title">Leasing Coordinator</div>
+            <ul>
+              <li>Process rental applications &amp; screening</li>
+              <li>Create &amp; manage apartment listings</li>
+              <li>Coordinate showings &amp; move-ins</li>
+              <li>DFR delivery &amp; eviction notice printing</li>
+            </ul>
+          </div>
+          <div class="report">
+            <div class="name">Danny Cajina</div>
+            <div class="title">Leasing Coordinator</div>
+            <ul>
+              <li>Process rental applications &amp; screening</li>
+              <li>Create &amp; manage apartment listings</li>
+              <li>Coordinate showings &amp; move-ins</li>
+              <li>Prospective tenant communications</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Maintenance -->
+      <div class="dept-col" onclick="toggleDept(this)">
+        <div class="dept-lead">
+          <span class="dept-tag">Maintenance</span>
+          <div class="name">Jim Plourde</div>
+          <div class="title">Maintenance Manager</div>
+          <div class="dept-acct">
+            <div class="item">Work order management &amp; prioritization</div>
+            <div class="item">Unit turns &amp; renovation oversight</div>
+            <div class="item">Vendor management &amp; contracts</div>
+            <div class="item">Inventory management &amp; purchasing</div>
+            <div class="item">CapEx project oversight &amp; owner comms</div>
+          </div>
+          <div class="reports-bar">
+            <span>10 reports</span>
+            <span class="chevron">▾</span>
+          </div>
+        </div>
+        <div class="reports-tree">
+          <div class="report">
+            <div class="name">Andrew Lambert</div>
+            <div class="title">Maintenance Coordinator</div>
+            <ul>
+              <li>Review, assign &amp; schedule work orders daily</li>
+              <li>Follow up &amp; close completed work orders</li>
+              <li>Coordinate techs &amp; vendors</li>
+              <li>Certificate of Compliance process</li>
+            </ul>
+          </div>
+          <div class="report">
+            <div class="name">Justin Burke</div>
+            <div class="title">Maintenance Project Mgr</div>
+            <ul>
+              <li>Manage CapEx projects &amp; unit turns</li>
+              <li>Gather estimates &amp; get owner approval</li>
+              <li>Vendor &amp; contractor coordination</li>
+              <li>Unit turn business plan communication</li>
+            </ul>
+          </div>
+          <div class="report">
+            <div class="name">Kyle Eno</div>
+            <div class="title">Maintenance Tech II</div>
+            <ul>
+              <li>Execute work orders &amp; unit turns</li>
+              <li>Lead &amp; mentor other techs</li>
+              <li>On-call rotation for emergencies</li>
+              <li>Track time, purchases &amp; receipts</li>
+            </ul>
+          </div>
+          <div class="report">
+            <div class="name">Bill Simmons</div>
+            <div class="title">Maintenance Tech</div>
+            <ul>
+              <li>Execute work orders &amp; unit turns</li>
+              <li>On-call rotation for emergencies</li>
+              <li>Track time, purchases &amp; receipts</li>
+            </ul>
+          </div>
+          <div class="report">
+            <div class="name">Felix Sanchez</div>
+            <div class="title">Maintenance Tech</div>
+            <ul>
+              <li>Execute work orders &amp; unit turns</li>
+              <li>On-call rotation for emergencies</li>
+              <li>Track time, purchases &amp; receipts</li>
+            </ul>
+          </div>
+          <div class="report">
+            <div class="name">Sean Reardon</div>
+            <div class="title">Maintenance Tech</div>
+            <ul>
+              <li>Execute work orders &amp; unit turns</li>
+              <li>On-call rotation for emergencies</li>
+              <li>Track time, purchases &amp; receipts</li>
+            </ul>
+          </div>
+          <div class="report">
+            <div class="name">Dustin Kohrherr</div>
+            <div class="title">Maintenance Tech</div>
+            <ul>
+              <li>Execute work orders &amp; unit turns</li>
+              <li>On-call rotation for emergencies</li>
+              <li>Track time, purchases &amp; receipts</li>
+            </ul>
+          </div>
+          <div class="report">
+            <div class="name">Andre Fleuriel</div>
+            <div class="title">Maintenance Tech</div>
+            <ul>
+              <li>Execute work orders &amp; unit turns</li>
+              <li>On-call rotation for emergencies</li>
+              <li>Track time, purchases &amp; receipts</li>
+            </ul>
+          </div>
+          <div class="report">
+            <div class="name">Marty Ferro</div>
+            <div class="title">Maintenance Tech</div>
+            <ul>
+              <li>Execute work orders &amp; unit turns</li>
+              <li>On-call rotation for emergencies</li>
+              <li>Track time, purchases &amp; receipts</li>
+            </ul>
+          </div>
+          <div class="report">
+            <div class="name">Jenni Keefe</div>
+            <div class="title">Cleaning Technician</div>
+            <ul>
+              <li>Clean apartments between tenants</li>
+              <li>Common area cleaning &amp; upkeep</li>
+              <li>Post-renovation cleaning</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Finance / Accounting -->
+      <div class="dept-col" onclick="toggleDept(this)">
+        <div class="dept-lead">
+          <span class="dept-tag">Finance / Accounting</span>
+          <div class="name">Chandrima Bose</div>
+          <div class="title">Head Accountant</div>
+          <div class="dept-acct">
+            <div class="item">Accounts payable &amp; receivable</div>
+            <div class="item">Work order &amp; purchase billing</div>
+            <div class="item">Bank &amp; ledger reconciliations</div>
+            <div class="item">Utility &amp; vendor bill payments</div>
+            <div class="item">Financial reporting &amp; DFR support</div>
+          </div>
+          <div class="reports-bar">
+            <span>2 reports</span>
+            <span class="chevron">▾</span>
+          </div>
+        </div>
+        <div class="reports-tree">
+          <div class="report">
+            <div class="name">Angel Jaranilla</div>
+            <div class="title">Accounting Assistant</div>
+            <ul>
+              <li>Accounts payable &amp; receivable processing</li>
+              <li>Work order &amp; purchase billing</li>
+              <li>Bank reconciliations</li>
+              <li>Utility bill payments</li>
+            </ul>
+          </div>
+          <div class="report">
+            <div class="name">Denise Navarro</div>
+            <div class="title">Accounting Assistant</div>
+            <ul>
+              <li>Accounts payable &amp; receivable processing</li>
+              <li>Work order &amp; purchase billing</li>
+              <li>Bank reconciliations</li>
+              <li>Utility bill payments</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sales & Marketing -->
+      <div class="dept-col" onclick="toggleDept(this)">
+        <div class="dept-lead">
+          <span class="dept-tag">Sales &amp; Marketing</span>
+          <div class="name">Jacob Rich</div>
+          <div class="title">Business Development Manager</div>
+          <div class="dept-acct">
+            <div class="item">New client acquisition &amp; cold outreach</div>
+            <div class="item">Owner lead management &amp; follow-up</div>
+            <div class="item">Client onboarding process</div>
+            <div class="item">Business operations improvement</div>
+            <div class="item">Marketing strategy &amp; content oversight</div>
+          </div>
+          <div class="reports-bar">
+            <span>1 report</span>
+            <span class="chevron">▾</span>
+          </div>
+        </div>
+        <div class="reports-tree">
+          <div class="report">
+            <div class="name">Ixy Acevedo</div>
+            <div class="title">Marketing Associate</div>
+            <ul>
+              <li>Develop &amp; execute marketing strategy</li>
+              <li>Create marketing content &amp; collateral</li>
+              <li>Manage social media &amp; online presence</li>
+              <li>Support lead generation campaigns</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    Based on EOS / <span class="blue">Traction</span> by Gino Wickman · Click any department to expand reports
+  </div>
+
 </div>
+
 <script>
-function toggle(card) {
-  const reports = card.querySelector('.reports');
-  const chevron = card.querySelector('.chevron');
-  if (reports) { reports.classList.toggle('show'); chevron.classList.toggle('open'); }
+function toggleDept(col) {
+  col.classList.toggle('is-open');
+}
+function expandAll() {
+  document.querySelectorAll('.dept-col').forEach(c => c.classList.add('is-open'));
+}
+function collapseAll() {
+  document.querySelectorAll('.dept-col').forEach(c => c.classList.remove('is-open'));
 }
 </script>
 </body>
