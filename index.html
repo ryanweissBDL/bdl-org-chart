@@ -37,6 +37,21 @@
   .masthead .sub { font-size: 13px; font-weight: 400; color: var(--ink-mute); letter-spacing: 0.2px; }
   .masthead .blue { color: var(--brand-blue); font-weight: 600; }
 
+  /* Owners / advisors note */
+  .owners-note {
+    max-width: 560px;
+    margin: 0 auto 28px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--ink-mute);
+    background: var(--paper-tint);
+    border: 1px dashed var(--line-strong);
+    border-radius: 5px;
+    padding: 10px 16px;
+    line-height: 1.5;
+  }
+  .owners-note strong { color: var(--ink-soft); font-weight: 700; }
+
   /* Controls */
   .controls {
     display: flex;
@@ -307,7 +322,12 @@
   <div class="masthead">
     <div class="eyebrow">EOS Accountability Chart</div>
     <h1>Blue Door Living</h1>
-    <div class="sub"><span class="blue">27 team members</span> · 3rd-party residential property management · NH</div>
+    <div class="sub"><span class="blue">27 team members</span> · 3rd-party residential property management · NH · Updated July 8, 2026</div>
+  </div>
+
+  <!-- Owners / Advisors (off-chart) -->
+  <div class="owners-note">
+    <strong>Owners / Advisors (outside the operating chart):</strong> Axel Ragnarsson &amp; Peter Bartash — provide ideas &amp; feedback; input routes through the Integrator, not directly to departments.
   </div>
 
   <!-- Controls -->
@@ -320,20 +340,8 @@
   <div class="top">
     <div class="leader-card">
       <span class="role-tag">Visionary</span>
-      <div class="vis-people">
-        <div class="vis-person">
-          <div class="name">Ryan Weiss</div>
-          <div class="title">Visionary &amp; Business Owner</div>
-        </div>
-        <div class="vis-person">
-          <div class="name">Axel Ragnarsson</div>
-          <div class="title">Visionary &amp; Business Owner</div>
-        </div>
-        <div class="vis-person">
-          <div class="name">Peter Bartash</div>
-          <div class="title">Visionary &amp; Business Owner</div>
-        </div>
-      </div>
+      <div class="name-single">Ryan Weiss</div>
+      <div class="title-single">Visionary &amp; Business Owner</div>
       <div class="accountabilities">
         <div class="item">Company vision, culture &amp; core values</div>
         <div class="item">Big relationships (clients, partners, investors)</div>
@@ -358,6 +366,7 @@
         <div class="item">Accountability across all departments</div>
         <div class="item">P&amp;L management</div>
         <div class="item">Executes business plan &amp; resolves cross-dept issues</div>
+        <div class="item">IT &amp; systems (AppFolio, LeadSimple, tech stack)</div>
       </div>
     </div>
   </div>
